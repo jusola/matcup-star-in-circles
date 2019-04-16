@@ -3,8 +3,44 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <script>
+      var playerState = false;
+      window.addEventListener("keydown", event => {
+        var videoPlayer = document.getElementById('player');
+        if (event.isComposing || event.keyCode === 229) {
+          return;
+        }
+        let timestep;
+        if(videoPlayer.currentTime < 5){
+          timestep = 0.5;
+        }else{
+          timestep = 0.25;
+        }
+        if(event.key == "ArrowLeft" && videoPlayer.currentTime >= 0){
+          videoPlayer.currentTime = videoPlayer.currentTime - timestep;
+        }
+        if(event.key == "ArrowRight" && videoPlayer.currentTime < 16.25){
+          videoPlayer.currentTime = videoPlayer.currentTime + timestep;
+        }
+        if(event.key == " "){
+          if(playerState){
+            videoPlayer.pause();
+            playerState = false;
+          }else{
+            videoPlayer.play().then(()=>{
+              playerState = true;
+            }).catch((err)=>{
+              console.error(err);
+            })
+          }
+
+        }
+        console.log(videoPlayer.currentTime);
+      });
+    </script>
   </head>
-    <video controls loop autoplay width="1366" height="768">
+  <body>
+    <video id="player" loop width="1366" height="768">
       <source src="circle.mov" type="video/mp4">
     </video>
   </body>
