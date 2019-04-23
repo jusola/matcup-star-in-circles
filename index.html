@@ -17,13 +17,22 @@
           timestep = 0.25;
         }
         if(event.key == "ArrowLeft" && videoPlayer.currentTime >= 0){
+          if(playerState){
+            playerState = false;
+            videoPlayer.pause();
+          }
           videoPlayer.currentTime = videoPlayer.currentTime - timestep;
         }
         if(event.key == "ArrowRight" && videoPlayer.currentTime < 16.25){
+          if(playerState){
+            playerState = false;
+            videoPlayer.pause();
+          }
           videoPlayer.currentTime = videoPlayer.currentTime + timestep;
         }
         if(event.key == " "){
           if(playerState){
+            videoPlayer.currentTime = 0;
             videoPlayer.pause();
             playerState = false;
           }else{
@@ -35,7 +44,7 @@
           }
 
         }
-        console.log(videoPlayer.currentTime);
+        console.log(event.key);
       });
     </script>
   </head>
